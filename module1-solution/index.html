@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="angular.min.js"></script>
+		<script src="app.js"></script>
+		<title>First Page</title>
+	</head>
+	<body ng-app="mod1App">
+		<div ng-controller="mod1Controller">
+			<input type="text" ng-model="items">
+			<label>Do not count empty item</label>	<button ng-click="check()">Check If Too Much</button>
+			<br>
+			Message : {{result}}
+		</div>
+	</body>
+</html>
