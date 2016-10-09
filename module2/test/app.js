@@ -3,17 +3,23 @@
 	angular.module('ShoppingListCheckOff', [])
 		.controller('ToBuyController', ToBuyController)
 		.controller('AlreadyBoughtController', AlreadyBoughtController)
-		.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
+		.provider('ShoppingProvider', ShoppingProvider);
 
-	ToBuyController.$inject = ['ShoppingListCheckOffService'];
+	ToBuyController.$inject = ['ShoppingFactory'];
 
-	function ToBuyController(ShoppingListCheckOffService) {
+    function ShoppingProvider(){
+
+    }
+
+	function ToBuyController(ShoppingFactory) {
 		var buyController = this;
+		var service = ShoppingFactory();
 		buyController.message = 'Everything is bought!';
-		buyController.items = ShoppingListCheckOffService.getToBuyItems();
+
+		buyController.items = service.getToBuyItems();
 
 		buyController.buy = function(index) {
-			ShoppingListCheckOffService.buy(index);
+			service.buy(index);
 		};
 
 		buyController.isEmpty = function(){
@@ -21,18 +27,23 @@
 		};
 	}
 
-	AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-	function AlreadyBoughtController(ShoppingListCheckOffService) {
+	AlreadyBoughtController.$inject = ['ShoppingFactory'];
+	function AlreadyBoughtController(ShoppingFactory) {
 		var boughtController = this;
+		var service = ShoppingFactory();
 		boughtController.message = 'Nothing bought yet';
 		
-		boughtController.items = ShoppingListCheckOffService.getBoughtItems();
+		boughtController.items = service.getToBuyItems();
         
+        boughtController.buy = function(index) {
+			service.buy(index);
+		};
 		boughtController.isEmpty = function(){
 			return boughtController.items.length === 0;
 		};
 	}
 
+	
 	function ShoppingListCheckOffService() {
 		var service = this;
 
@@ -73,5 +84,17 @@
 			return alreadyBought;
 		};
 	}
+
+	function ShoppingProvider(){
+		var provider = this;
+
+		provider.config = {
+
+		};
+		provider.$get = function(){
+			return new ShoppingListCheckOffService();
+		};
+	}
+
 
 })();
