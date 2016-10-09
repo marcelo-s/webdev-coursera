@@ -57,12 +57,7 @@
 
 		service.buy = function(index) {
 			var removedItems = toBuy.splice(index, 1);
-			var newItem = {
-				name: removedItems[0].name,
-				quantity: removedItems[0].quantity
-			};
-			console.log(newItem);
-			alreadyBought.push(newItem);
+			alreadyBought.push(removedItems[0]);
 		};
 
 		service.getToBuyItems = function() {
