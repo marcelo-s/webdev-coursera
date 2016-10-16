@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+
+	<title>Module3 Solution</title>
+</head>
+<body ng-app="NarrowItDownApp">
+<div ng-controller="NarrowItDownController as narrowctrl">
+	
+<input type="text" ng-model="narrowctrl.searchTerm">
+<button ng-click="narrowctrl.getMatchedMenuItems(narrowctrl.searchTerm)">Narrow It Down For Me!</button>
+		 <found-items on-remove='narrowctrl.remove(index)' found='narrowctrl.found'></found-items>
+<div>{{narrowctrl.nothingFoundMessage}}</div>
+</div>
+</body>
+</html>
